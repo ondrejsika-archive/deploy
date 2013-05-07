@@ -24,6 +24,8 @@ class App:
         if not domains:
             domain = self.name.replace("__", ".").replace("_", "-")
             self.domains = "%s www.%s" % (domain, domain)
+        else:
+            self.domains = domains
 
     def is_exists(self):
         return os.path.exists(self.holder)
