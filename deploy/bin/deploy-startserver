@@ -4,32 +4,27 @@
 # Deploy
 
 import os
+import sys
 
-APPS_HOME = "/var/deploy/apps"
-SOCKS_HOME = "/var/deploy/sock"
-GIT_HOME = "/var/git"
+from deploy.conf import APPS_HOME, SOCKS_HOME, GIT_HOME, SUPERVISOR_CONFD, NGINX_SITES, NGINX_SITES_ENABLED, GIT_USER
+from deploy.models import App
 
-SUPERVISOR_CONFD = "/etc/supervisor/conf.d/"
-NGINX_SITES = "/etc/nginx/sites-available/"
-NGINX_SITES_ENABLED = "/etc/nginx/sites-enabled/"
 
-class App:
-    def __init__(self, name, domains=None):
-        name = name.replace("-", "_").replace(".", "__")
-        self.name = name
-        self.user = "deploy-%s" % name
-        self.home = os.path.join(APPS_HOME, name)
-        self.git = os.path.join(GIT_HOME, "%s.git"%name)
-        self.sock = os.path.join(SOCKS_HOME, "%s.sock"%name)
-        self.supervisor_conf = os.path.join(SUPERVISOR_CONFD, "%s.conf"%name)
-        self.static = os.path.join(self.home, "static")
-        self.nginx_conf = os.path.join(NGINX_SITES, name)
+if len(sys.argv) < 2:
+    print "usage deploy-server \"app_name\" [\"domain.com www.domain.com\"]"
+    exit()
 
-        if not domains:
-            domain = self.name.replace("__", ".").replace("_", "-")
-            self.domains = "%s www.%s" % (domain, domain)
+if len(sys.argv) == 2:
+    app = App(sys.argv[1])
+if len(sys.argv) == 3:
+    app = App(sys.argv[1], sys.argv[2])
 
-app = App("test2")
+if app.is_exists():
+    print "app with name \"%s\" is already exists" % app.name
+    exit()
+
+# hold appname
+os.system("date > %s"%app.holder)
 
 # create git repository
 os.makedirs(app.git)
@@ -38,6 +33,20 @@ os.system("cd %s; git init --bare"%app.git)
 # local git working tree
 os.system("git clone %s %s"%(app.git, app.home))
 
+# add hooks
+file(app.post_update_hook, "w").write("""#!/bin/sh
+GIT_DIR=%s
+WORK_TREE=%s
+
+git --git-dir=$GIT_DIR fetch
+git --git-dir=$GIT_DIR --work-tree=$WORK_TREE merge origin/master
+
+sudo supervisorctl restart %s
+""" % (os.path.join(app.home, ".git"), app.home, app.name))
+os.system("chmod +x %s"%app.post_update_hook)
+
+# chown git
+os.system("chown %s:%s %s -R"%(GIT_USER, GIT_USER, app.git))
 
 # create system user
 os.system("useradd %s -d %s -b %s"%(app.user, app.home, app.home))
