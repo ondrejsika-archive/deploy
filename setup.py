@@ -13,6 +13,7 @@ setup(
     author = 'Ondrej Sika',
     author_email = 'dev@ondrejsika.com',
     packages = find_packages(),
+    scripts = ["flask_server/bin/deploy-startserver", ]
     install_requires = [],
     include_package_data = True,
 )
