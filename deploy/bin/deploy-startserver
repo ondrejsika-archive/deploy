@@ -32,6 +32,7 @@ os.system("cd %s; git init --bare"%app.git)
 
 # local git working tree
 os.system("git clone %s %s"%(app.git, app.home))
+os.system("chown %s:%s %s -R"%(app.user, app.user, app.home))
 
 # add hooks
 file(app.post_update_hook, "w").write("""#!/bin/sh
@@ -47,13 +48,14 @@ os.system("chmod +x %s"%app.post_update_hook)
 
 # chown git
 os.system("chown %s:%s %s -R"%(GIT_USER, GIT_USER, app.git))
+os.system("chown %s:%s %s -R"%(GIT_USER, GIT_USER, os.path.join(app.home, ".git")))
 
 # create system user
 os.system("useradd %s -d %s -b %s"%(app.user, app.home, app.home))
 
 # supervisor conf
 file(app.supervisor_conf, "w").write("""[program:%s]
-command = gunicorn wsgi:application -u %s -b unix:/%s
+command = gunicorn wsgi:application -u %s -b unix:%s
 directory = %s""" % (app.name, app.user, app.sock, app.home))
 
 # nginx conf
