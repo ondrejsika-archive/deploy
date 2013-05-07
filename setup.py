@@ -13,7 +13,7 @@ setup(
     author = 'Ondrej Sika',
     author_email = 'dev@ondrejsika.com',
     packages = find_packages(),
-    scripts = ["deploy/bin/deploy", "deploy/bin/deploy-startserver"],
+    scripts = ["deploy/bin/deploy", "deploy/bin/deploy-startserver", "deploy/bin/deploy-init"],
     install_requires = [],
     include_package_data = True,
 )
