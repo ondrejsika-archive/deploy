@@ -42,8 +42,8 @@ file(app.post_update_hook, "w").write("""#!/bin/sh
 GIT_DIR=%s
 WORK_TREE=%s
 
-git --git-dir=$GIT_DIR fetch
-git --git-dir=$GIT_DIR --work-tree=$WORK_TREE merge origin/master
+sudo git --git-dir=$GIT_DIR fetch
+sudo git --git-dir=$GIT_DIR --work-tree=$WORK_TREE merge origin/master
 
 sudo supervisorctl restart %s
 """ % (os.path.join(app.home, ".git"), app.home, app.name))

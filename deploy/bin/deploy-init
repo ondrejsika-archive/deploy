@@ -27,3 +27,8 @@ GIT_USER = "git"
 if not "git" in file("/etc/passwd", "r").read():
     os.makedirs(GIT_HOME)
     os.system("useradd %s -b %s %s"%(GIT_USER, GIT_HOME, GIT_HOME))
+
+os.system("""
+echo "%s ALL=(ALL) NOPASSWD: /usr/bin/supervisorctl" >> /etc/sudoers
+echo "%s ALL=(ALL) NOPASSWD: /usr/bin/git" >> /etc/sudoers
+"""%(GIT_USER, GIT_USER))
