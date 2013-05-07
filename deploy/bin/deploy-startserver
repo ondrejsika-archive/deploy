@@ -1,0 +1,78 @@
+#!/usr/bin/python
+# coding: utf8
+
+# Deploy
+
+import os
+
+APPS_HOME = "/var/deploy/apps"
+SOCKS_HOME = "/var/deploy/sock"
+GIT_HOME = "/var/git"
+
+SUPERVISOR_CONFD = "/etc/supervisor/conf.d/"
+NGINX_SITES = "/etc/nginx/sites-available/"
+NGINX_SITES_ENABLED = "/etc/nginx/sites-enabled/"
+
+class App:
+    def __init__(self, name, domains=None):
+        name = name.replace("-", "_").replace(".", "__")
+        self.name = name
+        self.user = "deploy-%s" % name
+        self.home = os.path.join(APPS_HOME, name)
+        self.git = os.path.join(GIT_HOME, "%s.git"%name)
+        self.sock = os.path.join(SOCKS_HOME, "%s.sock"%name)
+        self.supervisor_conf = os.path.join(SUPERVISOR_CONFD, "%s.conf"%name)
+        self.static = os.path.join(self.home, "static")
+        self.nginx_conf = os.path.join(NGINX_SITES, name)
+
+        if not domains:
+            domain = self.name.replace("__", ".").replace("_", "-")
+            self.domains = "%s www.%s" % (domain, domain)
+
+app = App("test2")
+
+# create git repository
+os.makedirs(app.git)
+os.system("cd %s; git init --bare"%app.git)
+
+# local git working tree
+os.system("git clone %s %s"%(app.git, app.home))
+
+
+# create system user
+os.system("useradd %s -d %s -b %s"%(app.user, app.home, app.home))
+
+# supervisor conf
+file(app.supervisor_conf, "w").write("""[program:%s]
+command = gunicorn wsgi:application -u %s -b unix:/%s
+directory = %s""" % (app.name, app.user, app.sock, app.home))
+
+# nginx conf
+file(app.nginx_conf, "w").write("""upstream sock_%s {
+    server unix:%s;
+}
+
+server {
+    listen 80;
+    server_name %s;
+
+   location /static/ {
+        alias %s;
+   }
+
+   location / {
+        proxy_pass http://sock_%s/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+}""" % (app.name, app.sock, app.domains, app.static, app.name))
+
+# activate nginx conf
+os.system("ln -s %s %s"%(app.nginx_conf, NGINX_SITES_ENABLED))
+
+# reload supervisor
+os.system("supervisorctl reload")
+
+# restart nginx
+os.system("service nginx restart")
