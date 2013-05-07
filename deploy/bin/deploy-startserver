@@ -11,7 +11,7 @@ from deploy.models import App
 
 
 if len(sys.argv) < 2:
-    print "usage deploy-server \"app_name\" [\"domain.com www.domain.com\"]"
+    print "usage deploy-startserver \"app_name\" [\"domain.com www.domain.com\"]"
     exit()
 
 if len(sys.argv) == 2:
