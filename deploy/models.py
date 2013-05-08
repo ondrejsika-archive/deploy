@@ -12,7 +12,7 @@ class App:
         name = name.replace("-", "_").replace(".", "__")
         self.name = name
         self.holder = os.path.join(HOLDERS_HOME, name)
-        self.user = "deploy-%s" % name
+        self.user = "deploy-app-%s" % name
         self.home = os.path.join(APPS_HOME, name)
         self.git = os.path.join(GIT_HOME, "%s.git"%name)
         self.sock = os.path.join(SOCKS_HOME, "%s.sock"%name)
