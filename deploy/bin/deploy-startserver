@@ -11,7 +11,7 @@ from deploy.models import App
 
 
 if len(sys.argv) < 2:
-    print "usage deploy-startserver \"app_name\" [\"domain.com www.domain.com\"]"
+    print "usage: deploy-startserver <appname> [<domain.com www.domain.com>]"
     exit()
 
 if len(sys.argv) == 2:
@@ -20,7 +20,7 @@ if len(sys.argv) == 3:
     app = App(sys.argv[1], sys.argv[2])
 
 if app.is_exists():
-    print "app with name \"%s\" is already exists" % app.name
+    print "error: app with name \"%s\" is already exists" % app.name
     exit()
 
 # hold appname
