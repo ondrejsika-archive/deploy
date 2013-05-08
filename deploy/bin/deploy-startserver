@@ -51,7 +51,6 @@ os.system("chmod +x %s"%app.post_update_hook)
 
 # chown git
 os.system("chown %s:%s %s -R"%(GIT_USER, GIT_USER, app.git))
-os.system("chown %s:%s %s -R"%(GIT_USER, GIT_USER, os.path.join(app.home, ".git")))
 
 # supervisor conf
 file(app.supervisor_conf, "w").write("""[program:%s]
