@@ -26,7 +26,7 @@ GIT_USER = "git"
 
 if not GIT_USER in file("/etc/passwd", "r").read():
     os.makedirs(GIT_HOME)
-    os.system("useradd %s -b %s %s"%(GIT_USER, GIT_HOME, GIT_HOME))
+    os.system("useradd %s -b %s -d %s"%(GIT_USER, GIT_HOME, GIT_HOME))
 
 if not REMOTE_USER in file("/etc/passwd", "r").read():
     os.system("useradd %s "%REMOTE_USER)
