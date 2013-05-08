@@ -1,0 +1,24 @@
+#!/usr/bin/python
+# coding: utf8
+
+# Deploy
+
+import os
+
+from deploy.conf import DEPLOY_CONF, APPS_HOME, SOCKS_HOME, GIT_HOME, SUPERVISOR_CONFD, NGINX_SITES, NGINX_SITES_ENABLED, GIT_USER, HOLDERS_HOME, REMOTE_USER, SUPERVISOR_CONFD
+
+
+if not REMOTE_USER in file("/etc/passwd", "r").read():
+    os.system("useradd %s "%REMOTE_USER)
+
+os.system("""
+echo "%s ALL=(ALL) NOPASSWD: /usr/local/bin/deploy" >> /etc/sudoers
+"""%(REMOTE_USER))
+
+# supervisor conf
+file(os.path.join(SUPERVISOR_CONFD, "deploy-remote.conf"), "w").write("""[program:%s]
+command = sudo -u %s /usr/local/bin/deploy-remote
+""" % (REMOTE_USER, ))
+
+# reload supervisor
+os.system("supervisorctl reload")
