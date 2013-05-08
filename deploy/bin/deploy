@@ -8,5 +8,10 @@ if [[ $1 == "startserver" ]]; then
 elif [[ $1 == "init" ]]; then
     deploy-init
 else
-    echo "usage: deploy <command>"
+    echo "usage: deploy <command> [...]
+
+commands:
+    init
+    startserver <appname> [<domains>]
+"
 fi
