@@ -20,4 +20,4 @@ SUPERVISOR_CONFD = getattr(conf, "SUPERVISOR_CONFD", "/etc/supervisor/conf.d/")
 NGINX_SITES = getattr(conf, "NGINX_SITES", "/etc/nginx/sites-available/")
 NGINX_SITES_ENABLED = getattr(conf, "NGINX_SITES_ENABLED", "/etc/nginx/sites-enabled/")
 
-HOLDERS_HOME = "/etc/deploy/apps"
+HOLDERS_HOME = getattr(conf, "HOLDERS_HOME", "/etc/deploy/apps")
