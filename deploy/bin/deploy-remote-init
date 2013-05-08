@@ -16,7 +16,7 @@ echo "%s ALL=(ALL) NOPASSWD: /usr/local/bin/deploy" >> /etc/sudoers
 """%(REMOTE_USER))
 
 # supervisor conf
-file(os.path.join(SUPERVISOR_CONFD, "deploy-remote.conf"), "w").write("""[program:%s]
+file(os.path.join(SUPERVISOR_CONFD, "deploy-remote.conf"), "w").write("""[program:deploy-remote]
 command = sudo -u %s /usr/local/bin/deploy-remote
 """ % (REMOTE_USER, ))
 
