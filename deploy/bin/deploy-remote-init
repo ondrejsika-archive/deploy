@@ -15,6 +15,16 @@ os.system("""
 echo "%s ALL=(ALL) NOPASSWD: /usr/local/bin/deploy" >> /etc/sudoers
 """%(REMOTE_USER))
 
+while True:
+    p1 = raw_input("set your remote password: ")
+    p2 = raw_input("agin: ")
+    if p1 == p2:
+        password = p1
+        break
+    print "password not same"
+
+os.system("echo 'REMOTE_PASSWORD=\"%s\"' >> %s"%(password, DEPLOY_CONF))
+
 # supervisor conf
 file(os.path.join(SUPERVISOR_CONFD, "deploy-remote.conf"), "w").write("""[program:deploy-remote]
 command = sudo -u %s /usr/local/bin/deploy-remote
@@ -22,3 +32,4 @@ command = sudo -u %s /usr/local/bin/deploy-remote
 
 # reload supervisor
 os.system("supervisorctl reload")
+os.system("supervisorctl restart deploy-remote")
