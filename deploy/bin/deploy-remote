@@ -1,0 +1,23 @@
+#!/usr/bin/python
+# coding: utf8
+
+# Deploy
+
+import os
+
+from cryptedserver import CryptedServer
+
+from deploy.conf import REMOTE_PASSWORD, REMOTE_PORT, REMOTE_ADDRESS, DEPLOY_CONF
+
+
+if not REMOTE_PASSWORD:
+    print "error: you must set \"REMOTE_PASSWORD\" in %s" % DEPLOY_CONF
+    exit()
+
+def handler(req):
+    if req.has_key("password") and req.has_key("cmd") and req["password"] == REMOTE_PASSWORD:
+        os.system("sudo deploy %s"%req["cmd"])
+        
+    return "Done."
+
+CryptedServer((REMOTE_ADDRESS, REMOTE_PORT), handler).serve_forever()

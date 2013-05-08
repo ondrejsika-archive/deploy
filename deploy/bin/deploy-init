@@ -5,7 +5,7 @@
 
 import os
 
-from deploy.conf import DEPLOY_CONF, APPS_HOME, SOCKS_HOME, GIT_HOME, SUPERVISOR_CONFD, NGINX_SITES, NGINX_SITES_ENABLED, GIT_USER, HOLDERS_HOME
+from deploy.conf import DEPLOY_CONF, APPS_HOME, SOCKS_HOME, GIT_HOME, SUPERVISOR_CONFD, NGINX_SITES, NGINX_SITES_ENABLED, GIT_USER, HOLDERS_HOME, REMOTE_USER
 
 
 if not os.path.exists(APPS_HOME):
@@ -28,7 +28,12 @@ if not "git" in file("/etc/passwd", "r").read():
     os.makedirs(GIT_HOME)
     os.system("useradd %s -b %s %s"%(GIT_USER, GIT_HOME, GIT_HOME))
 
+if not REMOTE_USER in file("/etc/passwd", "r").read():
+    os.system("useradd %s "%REMOTE_USER)
+
+
 os.system("""
 echo "%s ALL=(ALL) NOPASSWD: /usr/bin/supervisorctl" >> /etc/sudoers
 echo "%s ALL=(ALL) NOPASSWD: /usr/bin/git" >> /etc/sudoers
-"""%(GIT_USER, GIT_USER))
+echo "%s ALL=(ALL) NOPASSWD: /usr/local/bin/deploy" >> /etc/sudoers
+"""%(GIT_USER, GIT_USER, REMOTE_USER))
