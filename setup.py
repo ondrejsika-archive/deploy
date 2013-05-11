@@ -13,7 +13,13 @@ setup(
     author = 'Ondrej Sika',
     author_email = 'dev@ondrejsika.com',
     packages = find_packages(),
-    scripts = ["deploy/bin/deploy", "deploy/bin/deploy-startserver", "deploy/bin/deploy-init", "deploy/bin/deploy-remote"],
+    scripts = [
+        "deploy/bin/deploy",
+        "deploy/bin/deploy-startserver",
+        "deploy/bin/deploy-init",
+        "deploy/bin/deploy-remote",
+        "deploy/bin/deploy-remote-init",
+    ],
     install_requires = ["cryptedserver"],
     include_package_data = True,
 )
