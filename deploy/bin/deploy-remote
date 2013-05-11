@@ -16,8 +16,8 @@ if not REMOTE_PASSWORD:
 
 def handler(req):
     if req.has_key("password") and req.has_key("cmd") and req["password"] == REMOTE_PASSWORD:
-        os.system("sudo deploy %s"%req["cmd"])
+        return os.popen("sudo deploy %s"%req["cmd"]).read()
         
-    return "Done."
+    return "error: remote: bad syntax"
 
 CryptedServer((REMOTE_ADDRESS, REMOTE_PORT), handler).serve_forever()
