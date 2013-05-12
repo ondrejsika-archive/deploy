@@ -67,7 +67,7 @@ server {
     server_name %s;
 
    location /static/ {
-        alias %s;
+        alias %s/;
    }
 
    location / {

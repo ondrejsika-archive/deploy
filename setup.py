@@ -5,7 +5,7 @@ from setuptools import setup, find_packages
 
 setup(
     name = "deploy",
-    version = "1.1.0",
+    version = "1.1.1",
     url = 'http://ondrejsika.com/docs/deploy',
     download_url = 'https://github.com/sikaondrej/deploy',
     license = 'GNU LGPL v.3',
