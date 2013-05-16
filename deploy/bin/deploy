@@ -5,6 +5,8 @@
 
 if [[ $1 == "startserver" ]]; then
     deploy-startserver $2 $3
+elif [[ $1 == "serverconf" ]]; then
+    deploy-serverconf $2 $3
 elif [[ $1 == "init" ]]; then
     deploy-init
 else
@@ -13,5 +15,6 @@ else
 commands:
     init
     startserver <appname> [<domains>]
+    serverconf <appname> <service>
 "
 fi
