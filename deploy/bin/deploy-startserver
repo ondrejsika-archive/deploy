@@ -38,15 +38,20 @@ os.system("git clone %s %s"%(app.git, app.home))
 os.system("chown %s:%s %s -R"%(app.user, app.user, app.home))
 
 # add hooks
-file(app.post_update_hook, "w").write("""#!/bin/sh
+file(app.post_update_hook, "w").write("""#!/bin/bash
 GIT_DIR=%s
 WORK_TREE=%s
 
 sudo -u %s git --git-dir=$GIT_DIR fetch
 sudo -u %s git --git-dir=$GIT_DIR --work-tree=$WORK_TREE merge origin/master
 
+cd $WORK_TREE
+if [[ -r requirements.txt ]]; then
+    sudo -u %s env/bin/pip install -r requirements.txt
+fi
+
 sudo supervisorctl restart %s
-""" % (os.path.join(app.home, ".git"), app.home, app.user, app.user, app.name))
+""" % (os.path.join(app.home, ".git"), app.home, app.user, app.user, app.user, app.name))
 os.system("chmod +x %s"%app.post_update_hook)
 
 # chown git
@@ -77,6 +82,15 @@ server {
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     }
 }""" % (app.name, app.sock, app.domains, app.static, app.name))
+
+# create virtualenv
+os.system("""
+cd %(home)s
+sudo -u %(user)s virtualenv env
+"""%{
+    "home": app.home,
+    "user": app.user,
+})
 
 # activate nginx conf
 os.system("ln -s %s %s"%(app.nginx_conf, NGINX_SITES_ENABLED))
