@@ -21,7 +21,3 @@ NGINX_SITES = getattr(conf, "NGINX_SITES", "/etc/nginx/sites-available/")
 NGINX_SITES_ENABLED = getattr(conf, "NGINX_SITES_ENABLED", "/etc/nginx/sites-enabled/")
 
 HOLDERS_HOME = getattr(conf, "HOLDERS_HOME", "/etc/deploy/apps")
-REMOTE_PASSWORD = getattr(conf, "REMOTE_PASSWORD", None)
-REMOTE_USER = getattr(conf, "REMOTE_USER", "deploy-remote")
-REMOTE_PORT = getattr(conf, "REMOTE_PORT", 10000)
-REMOTE_ADDRESS = getattr(conf, "REMOTE_ADDRESS", "0.0.0.0")

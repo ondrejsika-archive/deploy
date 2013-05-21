@@ -5,7 +5,7 @@ from setuptools import setup, find_packages
 
 setup(
     name = "deploy",
-    version = "1.3.0",
+    version = "1.4.0",
     url = 'http://ondrejsika.com/docs/deploy',
     download_url = 'https://github.com/sikaondrej/deploy',
     license = 'GNU LGPL v.3',
@@ -19,8 +19,6 @@ setup(
         "deploy/bin/deploy-serverconf",
         "deploy/bin/deploy-init",
         "deploy/bin/deploy-restart",
-        "deploy/bin/deploy-remote",
-        "deploy/bin/deploy-remote-init",
     ],
     install_requires = ["cryptedserver"],
     include_package_data = True,
