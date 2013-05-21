@@ -20,6 +20,6 @@ setup(
         "deploy/bin/deploy-init",
         "deploy/bin/deploy-restart",
     ],
-    install_requires = ["cryptedserver"],
+    install_requires = ["pip", ],
     include_package_data = True,
 )
