@@ -7,6 +7,8 @@ if [[ $1 == "startserver" ]]; then
     deploy-startserver $2 $3
 elif [[ $1 == "serverconf" ]]; then
     deploy-serverconf $2 $3
+elif [[ $1 == "remove" ]]; then
+    deploy-remove $2 $3
 elif [[ $1 == "restart" ]]; then
     deploy-restart $2
 elif [[ $1 == "init" ]]; then
@@ -19,5 +21,6 @@ commands:
     startserver <appname> [<domains>]
     serverconf <appname> <service>
     restart <appname>
+    restart <appname> [-f]
 "
 fi

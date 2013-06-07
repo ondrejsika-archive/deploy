@@ -47,5 +47,8 @@ os.system("service nginx restart")
 os.system("mv %s %s"%(app.supervisor_conf, os.path.join(backup_dir, "supervisor")))
 os.system("supervisorctl reload")
 
+# rm app home
+os.system("rm %s -rf"%app.home)
+
 # rm app holder
 os.system("rm %s"%app.holder)
