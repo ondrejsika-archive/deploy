@@ -4,8 +4,11 @@
 # Deploy
 
 import os
+import datetime
 
-from deploy.conf import APPS_HOME, SOCKS_HOME, GIT_HOME, SUPERVISOR_CONFD, NGINX_SITES, NGINX_SITES_ENABLED, HOLDERS_HOME
+
+from deploy.conf import APPS_HOME, SOCKS_HOME, GIT_HOME, SUPERVISOR_CONFD, NGINX_SITES, NGINX_SITES_ENABLED, HOLDERS_HOME, BACKUP_DIR
+
 
 class App:
     def __init__(self, name, domains=None):
@@ -19,6 +22,7 @@ class App:
         self.supervisor_conf = os.path.join(SUPERVISOR_CONFD, "%s.conf"%name)
         self.static = os.path.join(self.home, "static")
         self.nginx_conf = os.path.join(NGINX_SITES, name)
+        self.nginx_enabled = os.path.join(NGINX_SITES_ENABLED, name)
         self.post_update_hook = os.path.join(self.git, "hooks/post-update")
 
         if not domains:
@@ -29,3 +33,5 @@ class App:
 
     def is_exists(self):
         return os.path.exists(self.holder)
+
+    backup_dir = property(lambda self: os.path.join(BACKUP_DIR, "%s_%s"%(datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S"), self.name)))

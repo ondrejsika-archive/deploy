@@ -6,7 +6,6 @@
 import os
 import sys
 
-from deploy.conf import APPS_HOME, SOCKS_HOME, GIT_HOME, SUPERVISOR_CONFD, NGINX_SITES, NGINX_SITES_ENABLED, GIT_USER
 from deploy.models import App
 
 
@@ -32,8 +31,21 @@ if not force:
     if appname != app.name:
         exit()
 
-# # reload supervisor
-# os.system("supervisorctl reload")
 
-# # restart nginx
-# os.system("service nginx restart")
+backup_dir = app.backup_dir
+os.makedirs(backup_dir)
+
+# move git to backup dir
+os.system("mv %s %s"%(app.git, os.path.join(backup_dir, "git")))
+
+# move nginx conf to backup dir
+os.system("mv %s %s"%(app.nginx_conf, os.path.join(backup_dir, "nginx")))
+os.system("rm %s"%app.nginx_enabled)
+os.system("service nginx restart")
+
+# move supervisor conf to backup dir
+os.system("mv %s %s"%(app.supervisor_conf, os.path.join(backup_dir, "supervisor")))
+os.system("supervisorctl reload")
+
+# rm app holder
+os.system("rm %s"%app.holder)
