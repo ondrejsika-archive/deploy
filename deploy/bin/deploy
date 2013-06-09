@@ -21,6 +21,6 @@ commands:
     startserver <appname> [<domains>]
     serverconf <appname> <service>
     restart <appname>
-    restart <appname> [-f]
+    remove <appname> [-f]
 "
 fi
