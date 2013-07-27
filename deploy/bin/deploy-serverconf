@@ -13,7 +13,7 @@ help = """usage: deploy-serverconf <appname> <service>
 
 services:
     nginx
-    gunicorn"""
+    supervisor"""
 
 if len(sys.argv) < 3:
     print help
