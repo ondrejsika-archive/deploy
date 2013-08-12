@@ -5,7 +5,7 @@ from setuptools import setup, find_packages
 
 setup(
     name = "deploy",
-    version = "1.6.3",
+    version = "1.6.4",
     url = 'http://ondrejsika.com/docs/deploy',
     download_url = 'https://github.com/sikaondrej/deploy',
     license = 'GNU LGPL v.3',
@@ -22,5 +22,4 @@ setup(
         "deploy/bin/deploy-remove",
     ],
     install_requires = ["pip", ],
-    include_package_data = True,
 )
