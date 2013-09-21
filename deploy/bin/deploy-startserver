@@ -54,6 +54,8 @@ if [[ -r post_update ]]; then
     sudo -u %s ./post_update
 fi
 
+find -name "*.coffee" -exec pycoffee  {} \;
+
 sudo supervisorctl restart %s
 """ % (os.path.join(app.home, ".git"), app.home, app.user, app.user, app.user, app.user, app.name))
 os.system("chmod +x %s"%app.post_update_hook)

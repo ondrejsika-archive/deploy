@@ -5,7 +5,7 @@ from setuptools import setup, find_packages
 
 setup(
     name = "deploy",
-    version = "1.6.4",
+    version = "1.7.0",
     url = 'http://ondrejsika.com/docs/deploy',
     download_url = 'https://github.com/sikaondrej/deploy',
     license = 'GNU LGPL v.3',
@@ -21,5 +21,5 @@ setup(
         "deploy/bin/deploy-restart",
         "deploy/bin/deploy-remove",
     ],
-    install_requires = ["pip", ],
+    install_requires = ["pip", "pycoffee"],
 )
