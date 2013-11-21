@@ -8,7 +8,7 @@ setup(
     version = "1.7.0",
     url = 'http://ondrejsika.com/docs/deploy',
     download_url = 'https://github.com/sikaondrej/deploy',
-    license = 'GNU LGPL v.3',
+    license = 'MIT',
     description = "Easy deploy Python WSGI apps",
     author = 'Ondrej Sika',
     author_email = 'dev@ondrejsika.com',
