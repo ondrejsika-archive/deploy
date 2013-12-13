@@ -7,16 +7,20 @@ Easy deploy Python WSGI apps
 
 * Ondrej Sika, <http://ondrejsika.com/>, <ondrej@ondrejsika.com>
 
+#### License
+
+Under MIT License, for more detail see [LICENSE](LICENSE) file
+
 #### Sources
 
-* project home - <https://github.com/sikaondrej/deploy/>
-* main repository - <https://github.com/sikaondrej/deploy.git>
+* project home - <https://github.com/ondrejsika/deploy/>
+* main repository - <https://github.com/ondrejsika/deploy.git>
 * pypi package - <https://pypi.python.org/pypi/deploy>
-* lastest download version - <https://github.com/sikaondrej/deploy/archive/master.zip>
+* lastest download version - <https://github.com/ondrejsika/deploy/archive/master.zip>
 
 #### Donate project
 
-<http://ondrejsika.com/donate/>
+<http://ondrejsika.com/donate.html>
 
 Installation
 ------------
