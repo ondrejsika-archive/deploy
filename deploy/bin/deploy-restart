@@ -19,5 +19,5 @@ app = App(sys.argv[1])
 if not app.is_exists():
     print "error: app with name \"%s\" is doesn't exists" % app.name
     exit()
-    
+
 os.system("supervisorctl restart %s"%app.name)
