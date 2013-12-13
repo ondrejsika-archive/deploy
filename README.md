@@ -58,8 +58,9 @@ in project root must be file wsgi.py with variable application (wsgi application
 ### pip requirements
 if existst file requirements.txt in project root, auto install requirements to virtualenv in env dir
 
-### post_update
-post_update is executable file in app root, launched after git update. can be used for db migrations, etc.
+### post update
+
+After GIT update run `post-update` hook from root. Accept too file name `post_update` (backport, will be removed in version 2.0)
 
 Update via GIT
 --------------

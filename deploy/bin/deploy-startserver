@@ -50,6 +50,11 @@ if [[ -r requirements.txt ]]; then
     sudo -u %s env/bin/pip install -r requirements.txt
 fi
 
+if [[ -r post-update ]]; then
+    sudo -u %s ./post-update
+fi
+
+# BACKPORT: will be removed in version 2.0
 if [[ -r post_update ]]; then
     sudo -u %s ./post_update
 fi
@@ -57,7 +62,7 @@ fi
 find -name "*.coffee" -exec pycoffee  {} \;
 
 sudo supervisorctl restart %s
-""" % (os.path.join(app.home, ".git"), app.home, app.user, app.user, app.user, app.user, app.name))
+""" % (os.path.join(app.home, ".git"), app.home, app.user, app.user, app.user, app.user, app.user, app.name))
 os.system("chmod +x %s"%app.post_update_hook)
 
 # chown git
