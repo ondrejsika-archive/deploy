@@ -6,12 +6,11 @@ from setuptools import setup, find_packages
 setup(
     name = "deploy",
     version = "1.7.0",
-    url = 'http://ondrejsika.com/docs/deploy',
-    download_url = 'https://github.com/sikaondrej/deploy',
+    url = 'https://github.com/ondrejsika/deploy',
     license = 'MIT',
     description = "Easy deploy Python WSGI apps",
     author = 'Ondrej Sika',
-    author_email = 'dev@ondrejsika.com',
+    author_email = 'ondrej@ondrejsika.com',
     packages = find_packages(),
     scripts = [
         "deploy/bin/deploy",
