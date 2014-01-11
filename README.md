@@ -102,3 +102,10 @@ remove server & create backup to BACKUP_DIR (default /var/deploy/backups). If yo
 if you can use remove in scripts, add paramenter -f (force)
 
     deploy remove "app" -f
+
+Changelog
+---------
+
+#### 1.9.0
+
+add root verification

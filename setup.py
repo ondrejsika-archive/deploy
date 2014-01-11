@@ -5,7 +5,7 @@ from setuptools import setup, find_packages
 
 setup(
     name = "deploy",
-    version = "1.8.0",
+    version = "1.9.0",
     url = 'https://github.com/ondrejsika/deploy',
     license = 'MIT',
     description = "Easy deploy Python WSGI apps",

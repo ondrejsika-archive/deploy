@@ -2,6 +2,11 @@
 
 # Deploy
 
+if [ $USER != "root" ]
+then
+    echo "you aren't root"
+    exit
+fi
 
 if [[ $1 == "startserver" ]]; then
     deploy-startserver $2 "$3"
