@@ -109,3 +109,6 @@ Changelog
 #### 1.9.0
 
 add root verification
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/ondrejsika/deploy/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
