@@ -20,5 +20,5 @@ setup(
         "deploy/bin/deploy-restart",
         "deploy/bin/deploy-remove",
     ],
-    install_requires = ["pip", "pycoffee"],
+    install_requires = [],
 )
