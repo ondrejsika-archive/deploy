@@ -31,6 +31,6 @@ if conf_type == "nginx":
     os.system("service nginx restart")
 elif conf_type == "supervisor":
     os.system("vim %s"%app.supervisor_conf)
-    os.system("supervisorctl restart %s"%app.name)
+    os.system("supervisorctl reload")
 else:
     print help

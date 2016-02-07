@@ -106,6 +106,10 @@ if you can use remove in scripts, add paramenter -f (force)
 Changelog
 ---------
 
+#### 1.9.1
+
+fix supervisor reload
+
 #### 1.9.0
 
 add root verification
