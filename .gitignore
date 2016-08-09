@@ -2,6 +2,8 @@
 .*.swp
 *~
 
+.idea
+.env
 env
 
 build
