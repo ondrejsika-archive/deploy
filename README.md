@@ -1,3 +1,11 @@
+# Obsolete - Don't use!
+
+Docker made it obsolete.
+
+-- Ondrej Sika
+
+---
+
 deploy
 ======
 
